@@ -1,6 +1,7 @@
 ## CHANGE LOGS
 
-**26.1.0 b**
+**26.2.0**
+- [added]       REST API endpoint authentication
 - [temporary]   Disabled the shortcut key for search
 - [update]      PHP codes to PHP 8.0
 - [enhanced]    Foundation folder/file/code that uses relative URL to use absolute URL

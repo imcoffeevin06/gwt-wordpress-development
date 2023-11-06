@@ -91,18 +91,22 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/vendors/envato-flex-slider/envato-flex-slider.php';
 
 /**
+* Disable rest api for users additions.
+*/
+require get_template_directory() . '/inc/function-disable_api.php';
+
+/**
  * GWT only works in WordPress 4.4 or later.
  */
 if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
 	require get_template_directory() . '/inc/back-compat.php';
 }
 
-add_filter( 'rest_authentication_errors', function( $result ) {
-	if ( ! empty( $result ) ) {
-	return $result;
-	}
-	if ( ! is_user_logged_in() ) {
-	return new WP_Error( 'rest_logged_out', 'Sorry, you must be logged in to make a request.', array( 'status' => 401 ) );
-	}
-	return $result;
-	});
+/*
+* additional security *
+*/
+function block_frames() {
+	header( 'X-FRAME-OPTIONS: SAMEORIGIN' );
+}
+add_action( 'send_headers', 'block_frames', 10 );
+

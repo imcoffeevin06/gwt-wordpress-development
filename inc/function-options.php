@@ -8,7 +8,48 @@
 class GOVPH
 {
   public $options;
-  private array $_default_options = ['govph_disable_search' => '', 'govph_logo_position' => '', 'govph_logo' => '', 'govph_logo_enable' => '', 'govph_agency_name' => '', 'govph_agency_tagline' => '', 'govph_headercolor' => '', 'govph_header_font_color' => '', 'govph_headerimage' => '', 'govph_slidercolor' => '', 'govph_sliderimage' => '', 'govph_slider_fullwidth' => '', 'govph_breadcrumbs_enable' => '', 'govph_breadcrumbs_separator' => '', 'govph_breadcrumbs_show_home' => '', 'govph_custom_pst' => '', 'govph_custom_anchorcolor' => '', 'govph_custom_anchorcolor_hover' => '', 'govph_custom_panel_top' => '', 'govph_custom_border_color' => '', 'govph_custom_panel_bottom' => '', 'govph_custom_border_width' => '', 'govph_custom_border_radius' => '', 'govph_custom_border_color' => '', 'govph_custom_background_color' => '', 'govph_custom_headings_text' => '', 'govph_custom_headings_inner_page_size' => '', 'govph_custom_footer_background_color' => '', 'govph_content_show_pub_date' => '', 'govph_content_pub_date_lbl' => '', 'govph_content_show_author' => '', 'govph_content_pub_author_lbl' => '', 'govph_acc_link_statement' => '', 'govph_acc_link_home' => '', 'govph_acc_link_main_content' => '', 'govph_acc_link_contact' => '', 'govph_acc_link_feedback' => '', 'govph_acc_link_faq' => '', 'govph_acc_link_sitemap' => '', 'govph_acc_link_search' => ''];
+  private array $_default_options = 
+  [
+    'govph_disable_search' => '', 
+    'govph_logo_position' => '', 
+    'govph_logo' => '', 
+    'govph_logo_enable' => '', 
+    'govph_agency_name' => '', 
+    'govph_agency_tagline' => '', 
+    'govph_headercolor' => '', 
+    'govph_header_font_color' => '', 
+    'govph_headerimage' => '', 
+    'govph_slidercolor' => '', 
+    'govph_sliderimage' => '', 
+    'govph_slider_fullwidth' => '', 
+    'govph_breadcrumbs_enable' => '', 
+    'govph_breadcrumbs_separator' => '', 
+    'govph_breadcrumbs_show_home' => '', 
+    'govph_custom_pst' => '', 
+    'govph_custom_anchorcolor' => '', 
+    'govph_custom_anchorcolor_hover' => '', 
+    'govph_custom_panel_top' => '', 
+    'govph_custom_border_color' => '', 
+    'govph_custom_panel_bottom' => '', 
+    'govph_custom_border_width' => '', 
+    'govph_custom_border_radius' => '', 
+    'govph_custom_border_color' => '', 
+    'govph_custom_background_color' => '', 
+    'govph_custom_headings_text' => '', 
+    'govph_custom_headings_inner_page_size' => '', 
+    'govph_custom_footer_background_color' => '', 
+    'govph_content_show_pub_date' => '', 
+    'govph_content_pub_date_lbl' => '', 
+    'govph_content_show_author' => '', 
+    'govph_content_pub_author_lbl' => '', 
+    'govph_acc_link_statement' => '', 
+    'govph_acc_link_home' => '', 
+    'govph_acc_link_main_content' => '', 
+    'govph_acc_link_contact' => '', 
+    'govph_acc_link_feedback' => '', 
+    'govph_acc_link_faq' => '', 
+    'govph_acc_link_sitemap' => '', 
+    'govph_acc_link_search' => ''];
 
   public function __construct()
   {
@@ -26,7 +67,7 @@ class GOVPH
     add_theme_page('Theme Options', 'Theme Options', 'administrator', 'govph-options', ['GOVPH', 'govph_options_page'],6);
   }
 
-  public function govph_options_page()
+  public static function govph_options_page()
   {
   ?>
   <div class="wrap">
@@ -159,6 +200,7 @@ class GOVPH
   <?php
   }
   
+  //default public function register_settings_field
   public function register_settings_fields()
   {
     register_setting('govph_options','govph_options');
@@ -336,20 +378,23 @@ class GOVPH
   <?php
   }
   
-  public function govph_slider_image_setting()
-  {
-  ?>
-    <label for="slider_image_background">
-      <input id="slider_image_background" type="text" size="36" name="govph_options[govph_sliderimage]" value="<?php echo $this->options['govph_sliderimage']; ?>" />
-      <input id="slider_image_background_button" class="button" type="button" value="Upload Image" />
-      <br/><span class="description">Enter a URL or upload an image for header background</span>
-    </label>
-  <?php
-    if (!empty($this->options['govph_sliderimage'])) {
-      echo '<br/><img src="'.$this->options['govph_sliderimage'].'" height="200px" alt="'.$alt.'" style="background: #ddd; padding: 10px;">';
-    }
-  }
 
+  public function govph_slider_image_setting()
+{
+?>
+    <label for="slider_image_background">
+        <input id="slider_image_background" type="text" size="36" name="govph_options[govph_sliderimage]" value="<?php echo $this->options['govph_sliderimage']; ?>" />
+        <input id="slider_image_background_button" class="button" type="button" value="Upload Image" />
+        <br/><span class="description">Enter a URL or upload an image for header background</span>
+    </label>
+<?php
+    $alt = isset($this->options['govph_sliderimage_alt']) ? $this->options['govph_sliderimage_alt'] : 'Alternate Text for the Image';
+    
+    if (!empty($this->options['govph_sliderimage'])) {
+        echo '<br/><img src="'.$this->options['govph_sliderimage'].'" height="200px" alt="'.$alt.'" style="background: #ddd; padding: 10px;">';
+    }
+}
+  
   public function govph_slider_fullwidth()
   {
     $true = ($this->options['govph_slider_fullwidth'] == 'true' ? "checked" : "");
@@ -698,11 +743,12 @@ class GOVPH
   <?php
   }
 
+  //Temporarily disabled
   public function govph_acc_link_search()
   {
   ?>
     <span class="field-prefix"><?php echo get_site_url(); ?>/ </span>
-    <input type="text" name="govph_options[govph_acc_link_search]" value="<?php echo $this->options['govph_acc_link_search'] ?>"><br/>
+    <input type="text" name="govph_options[govph_acc_link_search]" value="<?php echo $this->options['govph_acc_link_search'] ?>" readonly><br/>
     <span class="description">Note: Create a new page by going to "Pages" and selecting "Add New." Title the page "Search," and choose "Search Page" on Page Attributes from the Template drop-down menu. Click "Publish."<br/>
       The link will be coming from the created page's permalink.
     </span>
@@ -776,9 +822,19 @@ function govph_displayoptions( $options ){
       $anchorColor = (!empty($option['govph_custom_anchorcolor_hover']) ? 'color:'.$option['govph_custom_anchorcolor_hover'].' !important;' : '');
       echo $anchorColor;
       break;
+
+      //default govph_disable_search
+/*
     case 'govph_disable_search':
-      return ($option['govph_disable_search'] ? true : false);
+     return ($option['govph_disable_search'] ? true : false); 
       break;
+*/
+
+      //Fixed govph_disable_search
+      case 'govph_disable_search':
+        return (isset($option['govph_disable_search']) ? $option['govph_disable_search'] : false);
+      //End of Fixed govph_disable_search
+
     // TODO: disable option for widget position, make it dynamic, displays sidebars when atleast one widget is active
     case 'govph_content_position':
       $content_class = 'large-12 medium-12 ';
@@ -867,6 +923,8 @@ function govph_displayoptions( $options ){
       
       echo $val;
       break;
+/*
+      //default gov slider full
     case 'govph_slider_full':
       if ($option['govph_slider_fullwidth'] == 'true') {
         $val = 'active';
@@ -874,34 +932,38 @@ function govph_displayoptions( $options ){
       }
       break;
     case 'govph_slider_start':
-      if ($option['govph_slider_fullwidth'] == 'true') {
+      if ($option['govph_slider_fullwidth'] == 'true') { //error
         echo '';
       }
-      elseif ($option['govph_slider_fullwidth'] != 'true' || is_active_sidebar('banner-section-1') || is_active_sidebar('banner-section-2')) {
+      elseif ($option['govph_slider_fullwidth'] != 'true' || is_active_sidebar('banner-section-1') || is_active_sidebar('banner-section-2')) { //error
         echo '<div class="row">';
       }
       break;
     case 'govph_slider_end':
-      if ($option['govph_slider_fullwidth'] == 'true') {
+      if ($option['govph_slider_fullwidth'] == 'true') { //error
         echo '';
       }
-      elseif ($option['govph_slider_fullwidth'] != 'true' || is_active_sidebar('banner-section-1') || is_active_sidebar('banner-section-2')) {
+      elseif ($option['govph_slider_fullwidth'] != 'true' || is_active_sidebar('banner-section-1') || is_active_sidebar('banner-section-2')) { //error
         echo '</div>';
       }
       break;
+//end of default gov slider full
+
+
+//start of default banner title start
     case 'govph_banner_title_start':
-      if ($option['govph_slider_fullwidth'] == 'true') {
+      if ($option['govph_slider_fullwidth'] == 'true') { //error
         echo '<div class="row">';
       }
-      elseif ($option['govph_slider_fullwidth'] != 'true') {
+      elseif ($option['govph_slider_fullwidth'] != 'true') { //error
         echo '';
       }
       break;
     case 'govph_banner_title_end':
-      if ($option['govph_slider_fullwidth'] == 'true') {
+      if ($option['govph_slider_fullwidth'] == 'true') { //error
         echo '</div>';
       } 
-      elseif ($option['govph_slider_fullwidth'] != 'true') {
+      elseif ($option['govph_slider_fullwidth'] != 'true') { //error
         echo '';
       }
       break;
@@ -913,6 +975,48 @@ function govph_displayoptions( $options ){
         echo 'display: none;';
       }
       break;
+      //end of default banner title start
+*/
+
+//Modified gov slider full & banner title
+
+case 'govph_slider_start':
+  if (isset($option['govph_slider_fullwidth']) && $option['govph_slider_fullwidth'] == 'true') {
+      echo '';
+  } elseif (!isset($option['govph_slider_fullwidth']) || $option['govph_slider_fullwidth'] != 'true' || is_active_sidebar('banner-section-1') || is_active_sidebar('banner-section-2')) {
+      echo '<div class="row">';
+  }
+  break;
+case 'govph_slider_end':
+  if (isset($option['govph_slider_fullwidth']) && $option['govph_slider_fullwidth'] == 'true') {
+      echo '';
+  } elseif (!isset($option['govph_slider_fullwidth']) || $option['govph_slider_fullwidth'] != 'true' || is_active_sidebar('banner-section-1') || is_active_sidebar('banner-section-2')) {
+      echo '</div>';
+  }
+  break;
+case 'govph_banner_title_start':
+  if (isset($option['govph_slider_fullwidth']) && $option['govph_slider_fullwidth'] == 'true') {
+      echo '<div class="row">';
+  } else {
+      echo '';
+  }
+  break;
+case 'govph_banner_title_end':
+  if (isset($option['govph_slider_fullwidth']) && $option['govph_slider_fullwidth'] == 'true') {
+      echo '</div>';
+  } else {
+      echo '';
+  }
+  break;
+case 'govph_slider_fullwidth':
+  if (isset($option['govph_slider_fullwidth']) && $option['govph_slider_fullwidth'] != 'true') {
+      echo 'display: block;';
+  } else {
+      echo 'display: none;';
+  }
+  break;
+
+//END of Modified gov slider full & banner title
     case 'govph_acc_link_statement':
       if(!empty($option['govph_acc_link_statement'])){
         $value = '';

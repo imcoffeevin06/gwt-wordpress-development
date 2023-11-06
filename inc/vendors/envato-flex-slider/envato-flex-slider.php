@@ -19,20 +19,20 @@ require_once('slider-img-type.php');
 function efs_get_slider(){
 	$efs_query = "post_type=slider-image";
 	query_posts($efs_query);
-	
+
 	global $post_id;
-	
+
 	//To fix the Undefined variable $count
 	$count = 0; // Initialize $count
-	
+
 	//To fix the Undefined variable $slider
     $slider = ''; // Initialize $slider
 
 	if (have_posts()) : 	
-		
+
 		$slider = '<div class="orbit" role="region" aria-label="Banner Slider" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out">
 					<ul class="orbit-container">';		
-		
+
 		$count = 0;
 		$x = 1;
 		while (have_posts()) : the_post();
@@ -41,7 +41,7 @@ function efs_get_slider(){
 
 		while (have_posts()) : the_post();
 			$img = get_the_post_thumbnail($post_id, 'full', ['class' => 'orbit-image']);
-			
+
   		$slide_link = slider_link_get_meta_box_data(get_the_ID());
 			$caption = get_the_title();
 
